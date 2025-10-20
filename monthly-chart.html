@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h6 class="mb-0 fw-bold">Monthly Income vs Expense</h6>
+    <div>
+        <small class="text-muted fw-bold me-2">Auto-updates from the form</small>
+        <button id="downloadMonthly" class="btn btn-sm btn-outline-primary">Download</button>
+    </div>
+</div>
+<div class="position-relative mb-4" style="height: 360px; max-height: 50vh; min-height: 260px;">
+    <canvas id="monthlyChart" aria-label="Monthly chart"></canvas>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h6 class="mb-0 fw-bold">Totals • Income vs Expense</h6>
+    <div>
+        <small class="text-muted fw-bold me-2">Pie chart of totals</small>
+        <button id="downloadTotals" class="btn btn-sm btn-outline-primary">Download</button>
+    </div>
+</div>
+<div class="position-relative" style="height: 300px; max-height: 45vh; min-height: 220px;">
+    <canvas id="totalsPieChart" aria-label="Totals pie chart"></canvas>
+</div>
+
+<script>
+  (function(){
+    function downloadCanvasImage(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      if (canvas.toBlob) {
+        canvas.toBlob(function (blob) {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 'image/png');
+      } else {
+        const dataURL = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    }
+
+    const btnMonthly = document.getElementById('downloadMonthly');
+    const btnTotals = document.getElementById('downloadTotals');
+
+    if (btnMonthly) btnMonthly.addEventListener('click', function () {
+      downloadCanvasImage('monthlyChart', 'monthly-chart.png');
+    });
+
+    if (btnTotals) btnTotals.addEventListener('click', function () {
+      downloadCanvasImage('totalsPieChart', 'totals-pie-chart.png');
+    });
+  })();
+</script>
