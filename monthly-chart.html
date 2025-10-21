@@ -59,3 +59,21 @@
     });
   })();
 </script>
+
+<hr class="my-4"/>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h6 class="fw-bold mb-3">Email charts</h6>
+    <form id="emailChartsForm" class="row gy-2 gx-2 align-items-center" novalidate>
+      <div class="col-sm-8 col-md-9">
+        <label for="chartsEmail" class="form-label visually-hidden">Email</label>
+        <input type="email" class="form-control" id="chartsEmail" placeholder="name@example.com" required />
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+      <div class="col-sm-4 col-md-3 d-grid">
+        <button type="submit" class="btn btn-success">Send Charts</button>
+      </div>
+    </form>
+    <div id="emailChartsMsg" class="mt-2 small text-muted"></div>
+  </div>
+  </div>
